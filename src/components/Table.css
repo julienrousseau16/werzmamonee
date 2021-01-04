@@ -6,6 +6,10 @@
   background-color: coral;
 }
 
+.Table .UserData {
+  margin: 20px 0;
+}
+
 .Table table {
   width: 90%;
   background-color: bisque;
