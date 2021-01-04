@@ -1,0 +1,16 @@
+.Table {
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: coral;
+}
+
+.Table table {
+  width: 90%;
+  background-color: bisque;
+}
+
+.Table table * {
+  border: 1px solid grey;
+}
