@@ -4,13 +4,28 @@ import axios from 'axios'
 
 import './ChangeModal.css'
 
-const ChangeModal = ({ setAdmin, setChangeModal, expSelected, newValues, setNewValues, updateId, setUpdateId }) => {
+const ChangeModal = ({ setAdmin, setChangeModal, expSelected, updateId, setUpdateId }) => {
 
   const [updateValue, setUpdateValue] = useState(0)
+  const [newValues, setNewValues] = useState({ name: expSelected.name, amount: expSelected.amount, paid: expSelected.paid })
 
-  const handleChange = e => {
+  const handlePosition = e => {
     const change = e.target.value
     setUpdateValue(change)
+  }
+
+  const handleChange = e => {
+    let value = e.target.value
+    if (value === '0' || value === '1') {
+      value = parseInt(value)
+    }
+    const name = e.target.name
+    setNewValues(prevValues => ({ ...prevValues, [name]: value }))
+  }
+
+  const submitExpense = e => {
+    e.preventDefault()
+    console.log(newValues)
   }
 
   const changePosition = async () => {
@@ -20,7 +35,7 @@ const ChangeModal = ({ setAdmin, setChangeModal, expSelected, newValues, setNewV
         const newValue = res.data[0].current_position
         setAdmin(prevValues => ({ ...prevValues, current_position: newValue }))
       })
-      closeModal()
+    closeModal()
   }
 
   const closeModal = () => {
@@ -33,7 +48,7 @@ const ChangeModal = ({ setAdmin, setChangeModal, expSelected, newValues, setNewV
       <div className='ChangeModal'>
         <div className='ChangeModalContainer'>
           <label htmlFor='position'>Montant du nouveau solde :</label>
-          <input id='position' value={updateValue} onChange={handleChange} />
+          <input id='position' value={updateValue} onChange={handlePosition} />
         </div>
         <div>
           <button onClick={changePosition}>VALIDER</button>
@@ -45,14 +60,35 @@ const ChangeModal = ({ setAdmin, setChangeModal, expSelected, newValues, setNewV
     return (
       <div className='ChangeModal'>
         <div className='ChangeModalContainer'>
-          <p>modal des dépenses</p>
-          <p>{expSelected.id}</p>
-          <p>{expSelected.name}</p>
-          <p>{expSelected.amount}</p>
-          <p>{expSelected.paid}</p>
+          <form onSubmit={submitExpense}>
+            <div className='FormSection'>
+              <label htmlFor='name'>Intitulé de la dépense</label>
+              <legend>Actuellement : {expSelected.name}</legend>
+              <input name='name' type='text' value={newValues.name} onChange={handleChange} />
+            </div>
+            <div className='FormSection'>
+              <label htmlFor='amount'>Montant attendu</label>
+              <legend>Actuellement : {expSelected.amount}</legend>
+              <input name='amount' type='number' value={newValues.amount} onChange={handleChange} />
+            </div>
+            <div className='FormSection'>
+              <p>Montant débité sur le compte</p>
+              <legend>Actuellement : {expSelected.paid ? 'Oui' : 'Non'}</legend>
+              <div className='PaidAction'>
+                <div>
+                  <input type='radio' name='paid' value={1} onChange={handleChange} />
+                  <label htmlFor={1}>oui</label>
+                </div>
+                <div>
+                  <input type='radio' name='paid' value={0} onChange={handleChange} />
+                  <label htmlFor={0}>non</label>
+                </div>
+              </div>
+            </div>
+            <input type='submit' value='Valider' />
+          </form>
         </div>
         <div>
-          <button onClick={() => console.log(updateId)}>VALIDER</button>
           <button onClick={() => setChangeModal(false)}>ANNULER</button>
         </div>
       </div>

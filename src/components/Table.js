@@ -12,7 +12,6 @@ const Table = () => {
   const [expenses, setExpenses] = useState([])
   const [expSelected, setExpSelected] = useState()
   const [updateId, setUpdateId] = useState()
-  const [newValues, setNewValues] = useState({ id: 0, name: '', amount: 0.00, paid: 0 })
 
   const addNewExpense = async () => {
     const formData = { name: 'Nouvelle dépense', amount: 0.00, paid: 0 }
@@ -101,8 +100,6 @@ const Table = () => {
         admin={admin}
         expSelected={expSelected}
         setAdmin={setAdmin}
-        newValues={newValues}
-        setNewValues={setNewValues}
         setChangeModal={setChangeModal}
         updateId={updateId}
         setUpdateId={setUpdateId} />}
