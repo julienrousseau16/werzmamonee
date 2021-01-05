@@ -18,3 +18,12 @@
 .Table table * {
   border: 1px solid grey;
 }
+
+.Paid {
+  background-color: rgb(8, 126, 8);
+  color: rgb(10, 77, 10);
+}
+.Unpaid {
+  background-color: crimson;
+  color: rgb(63, 11, 21);
+}
