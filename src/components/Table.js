@@ -14,6 +14,14 @@ const Table = () => {
   const [updateId, setUpdateId] = useState()
   const [newValues, setNewValues] = useState({ id: 0, name: '', amount: 0.00, paid: 0 })
 
+  const addNewExpense = async () => {
+    const formData = { name: 'Nouvelle dépense', amount: 0.00, paid: 0 }
+    const results = await axios.post('http://localhost:4000/expenses', formData)
+    const tmp = [...expenses]
+    tmp.push(results.data[0])
+    setExpenses(tmp)
+  }
+
   const paySwitch = e => {
     const id = e.target.id
     const tmp = [...expenses]
@@ -70,31 +78,25 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {
-            expenses.map(expense =>
-              <tr key={expense.id}>
-                <th>{expense.name}</th>
-                <th>{expense.amount.toFixed(2)}</th>
-                <th
-                  id={expense.id}
-                  className={expense.paid ? 'Paid' : 'Unpaid'}
-                  onClick={paySwitch}>{
-                    expense.paid ? 'OK' : 'X'
-                  }</th>
-                <th id={expense.id}
-                  onClick={fetchExpense}
-                >Modif</th>
-              </tr>
-            )
-          }
+          {expenses.map(expense =>
+            <tr key={expense.id}>
+              <th>{expense.name}</th>
+              <th>{expense.amount.toFixed(2)}</th>
+              <th
+                id={expense.id}
+                className={expense.paid ? 'Paid' : 'Unpaid'}
+                onClick={paySwitch}>{
+                  expense.paid ? 'OK' : 'X'
+                }</th>
+              <th id={expense.id}
+                onClick={fetchExpense}
+              >Modif</th>
+            </tr>)}
         </tbody>
-        <tfoot>
-          <tr>
-            <th>Liquidités disponibles</th>
-            <th>{admin.current_position.toFixed(2)}</th>
-          </tr>
-        </tfoot>
       </table>
+      <div>
+        <button onClick={addNewExpense}>Nouvelle dépense</button>
+      </div>
       {changeModal && <ChangeModal
         admin={admin}
         expSelected={expSelected}
