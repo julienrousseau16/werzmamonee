@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import ChangeModal from './ChangeModal'
+import ExpensesModal from './ExpensesModal'
+import PositionModal from './PositionModal'
 
 import './Table.css'
 
 const Table = () => {
 
   const [admin, setAdmin] = useState({ id: null, name: '', current_position: 0.00 })
-  const [changeModal, setChangeModal] = useState(false)
+  const [expensesModal, setExpensesModal] = useState(false)
+  const [positionModal, setPositionModal] = useState(false)
   const [expenses, setExpenses] = useState([])
   const [expSelected, setExpSelected] = useState()
-  const [updateId, setUpdateId] = useState()
+  const [updateId, setUpdateId] = useState(0)
 
   const addNewExpense = async () => {
     const formData = { name: 'Nouvelle dépense', amount: 0.00, paid: 0 }
@@ -21,28 +23,11 @@ const Table = () => {
     setExpenses(tmp)
   }
 
-  const paySwitch = e => {
-    const id = e.target.id
-    const tmp = [...expenses]
-    const index = tmp.findIndex(item => item.id === parseInt(id))
-    const invert = () => tmp[index].paid === 0 ? 1 : 0
-    tmp[index].paid = invert()
-    setExpenses(tmp)
-    const formData = { paid: tmp[index].paid }
-    axios.put(`http://localhost:4000/expenses/${id}`, formData)
-  }
-
-  const openModal = e => {
-    const id = e.target.id
-    setUpdateId(id)
-    setChangeModal(true)
-  }
-
   const fetchExpense = async e => {
     const id = e.target.id
     const results = await axios.get(`http://localhost:4000/expenses?id=${id}`)
     setExpSelected(results.data[0])
-    setChangeModal(true)
+    setExpensesModal(true)
   }
 
   const fetchExpenses = async () => {
@@ -65,8 +50,8 @@ const Table = () => {
       <h2>Titre table</h2>
       <div className='UserData'>
         <h3>Utilisateur : {admin.name}</h3>
-        <p>Position actuelle du compte : {admin.current_position.toFixed(2)}</p>
-        <button id='UserPosition' onClick={openModal}>MODIFIER</button>
+        <p>Position actuelle du compte : {admin.current_position}</p>
+        <button id={0} onClick={() => setPositionModal(true)}>MODIFIER</button>
       </div>
       <table>
         <thead>
@@ -91,13 +76,23 @@ const Table = () => {
       <div>
         <button onClick={addNewExpense}>Nouvelle dépense</button>
       </div>
-      {changeModal && <ChangeModal
+      {expensesModal && <ExpensesModal
         admin={admin}
         expSelected={expSelected}
         expenses={expenses}
         setExpenses={setExpenses}
         setAdmin={setAdmin}
-        setChangeModal={setChangeModal}
+        setExpensesModal={setExpensesModal}
+        updateId={updateId}
+        setUpdateId={setUpdateId} />}
+
+      {positionModal && <PositionModal
+        admin={admin}
+        expSelected={expSelected}
+        expenses={expenses}
+        setExpenses={setExpenses}
+        setAdmin={setAdmin}
+        setPositionModal={setPositionModal}
         updateId={updateId}
         setUpdateId={setUpdateId} />}
     </div>

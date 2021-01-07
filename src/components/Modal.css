@@ -1,0 +1,119 @@
+.Modal {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.ModalContainer {
+  padding: 5%;
+  margin-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.Modal form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.FormSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.FormSection label, .FormSection p {
+  font-size: 20px;
+}
+
+.FormSection legend {
+  margin-bottom: 10px;
+  font-style: italic;
+  color: grey;
+}
+
+.FormSection input {
+  width: 50%;
+  text-align: center;
+}
+
+.PaidAction {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.PaidAction div {
+  text-align: center;
+}
+
+.PaidAction div input {
+  display: none;
+}
+
+.Regular {}
+
+.PaidAction label {
+  padding: 2px 4px;
+  border-radius: 5px;
+  color: rgb(51, 48, 48);
+  text-transform: uppercase;
+}
+
+.PaidAction .Paid {
+  background-color: rgb(8, 126, 8);
+  color: #fff;
+}
+
+.PaidAction .Unpaid {
+  background-color: crimson;
+  color: #fff;
+}
+
+#Validate {
+  padding: 7px 15px;
+  background-color: rgb(49, 106, 153);
+  border-radius: 5px;
+  border-color: rgb(95, 143, 182);
+  color: #fff;
+  font-weight: bold;
+}
+
+.CancelSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.CancelSection p {
+  padding: 0 10px;
+  position: relative;
+  top: 35px;
+  background-color: #fff;
+  color: grey;
+}
+
+.CancelSection hr {
+  width: 100%;
+  margin: 25px 0;
+  color: grey;
+}
+
+.CancelSection button {
+  padding: 7px 15px;
+  background-color: crimson;
+  border-radius: 5px;
+  border-color: rgb(177, 85, 104);
+  color: #fff;
+  font-weight: bold;
+}
