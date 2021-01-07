@@ -9,11 +9,9 @@ import './Table.css'
 const Table = () => {
 
   const [admin, setAdmin] = useState({ id: null, name: '', current_position: 0.00 })
-  const [expensesModal, setExpensesModal] = useState(false)
-  const [positionModal, setPositionModal] = useState(false)
+  const [modals, setModals] = useState({ position: false, expenses: false })
   const [expenses, setExpenses] = useState([])
   const [expSelected, setExpSelected] = useState()
-  const [updateId, setUpdateId] = useState(0)
 
   const addNewExpense = async () => {
     const formData = { name: 'Nouvelle dépense', amount: 0.00, paid: 0 }
@@ -27,7 +25,7 @@ const Table = () => {
     const id = e.target.id
     const results = await axios.get(`http://localhost:4000/expenses?id=${id}`)
     setExpSelected(results.data[0])
-    setExpensesModal(true)
+    setModals(prevValues => ({...prevValues, expenses: true}))
   }
 
   const fetchExpenses = async () => {
@@ -51,7 +49,7 @@ const Table = () => {
       <div className='UserData'>
         <h3>Utilisateur : {admin.name}</h3>
         <p>Position actuelle du compte : {admin.current_position}</p>
-        <button id={0} onClick={() => setPositionModal(true)}>MODIFIER</button>
+        <button id='position' onClick={() => setModals(prevValues => ({ ...prevValues, position: true }))}>ACTUALISER</button>
       </div>
       <table>
         <thead>
@@ -76,25 +74,17 @@ const Table = () => {
       <div>
         <button onClick={addNewExpense}>Nouvelle dépense</button>
       </div>
-      {expensesModal && <ExpensesModal
-        admin={admin}
-        expSelected={expSelected}
-        expenses={expenses}
-        setExpenses={setExpenses}
-        setAdmin={setAdmin}
-        setExpensesModal={setExpensesModal}
-        updateId={updateId}
-        setUpdateId={setUpdateId} />}
 
-      {positionModal && <PositionModal
-        admin={admin}
-        expSelected={expSelected}
+      {modals.position && <PositionModal
+        setAdmin={setAdmin}
+        setModals={setModals} />}
+
+      {modals.expenses && <ExpensesModal
         expenses={expenses}
         setExpenses={setExpenses}
-        setAdmin={setAdmin}
-        setPositionModal={setPositionModal}
-        updateId={updateId}
-        setUpdateId={setUpdateId} />}
+        expSelected={expSelected}
+        setModals={setModals} />}
+
     </div>
   )
 }

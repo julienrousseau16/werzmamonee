@@ -3,7 +3,7 @@ import axios from 'axios'
 
 import './Modal.css'
 
-const PositionModal = ({ setAdmin, setPositionModal }) => {
+const PositionModal = ({ setAdmin, setModals }) => {
 
   const [updateValue, setUpdateValue] = useState(0)
 
@@ -19,7 +19,7 @@ const PositionModal = ({ setAdmin, setPositionModal }) => {
         const newValue = res.data[0].current_position
         setAdmin(prevValues => ({ ...prevValues, current_position: newValue }))
       })
-    setPositionModal(false)
+    setModals(prevValues => ({ ...prevValues, position: false }))
   }
 
   return (
@@ -30,7 +30,7 @@ const PositionModal = ({ setAdmin, setPositionModal }) => {
       </div>
       <div>
         <button onClick={changePosition}>VALIDER</button>
-        <button onClick={() => setPositionModal(false)}>ANNULER</button>
+        <button onClick={() => setModals(prevValues => ({ ...prevValues, position: false }))}>ANNULER</button>
       </div>
     </div>
   )

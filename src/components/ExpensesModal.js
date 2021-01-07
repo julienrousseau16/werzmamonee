@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import './Modal.css'
 
-const ExpensesModal = ({ setExpensesModal, expSelected, expenses, setExpenses }) => {
+const ExpensesModal = ({ expenses, setExpenses, expSelected, setModals }) => {
 
   const [newValues, setNewValues] = useState({ id: expSelected.id, name: expSelected.name, amount: expSelected.amount, paid: expSelected.paid })
 
@@ -26,11 +26,17 @@ const ExpensesModal = ({ setExpensesModal, expSelected, expenses, setExpenses })
     const index = tmp.findIndex(expense => expense.id === id)
     tmp[index] = newValues
     setExpenses(tmp)
-    setExpensesModal(false)
+    setModals(prevValues => ({ ...prevValues, expenses: false }))
   }
 
-  const closeModal = () => {
-    setExpensesModal(false)
+  const deleteExpense = async () => {
+    const id = newValues.id
+    await axios.delete(`http://localhost:4000/expenses/${id}`)
+    const tmp = [...expenses]
+    const index = tmp.findIndex(expense => expense.id === id)
+    tmp.splice(index, 1)
+    setExpenses(tmp)
+    setModals(prevValues => ({ ...prevValues, expenses: false }))
   }
 
   return (
@@ -66,11 +72,11 @@ const ExpensesModal = ({ setExpensesModal, expSelected, expenses, setExpenses })
         <div className='CancelSection'>
           <p>OU</p>
           <hr />
-          <button>Supprimer la dépense</button>
+          <button onClick={deleteExpense}>Supprimer la dépense</button>
         </div>
       </div>
       <div>
-        <button onClick={closeModal}>Retour</button>
+        <button onClick={() => setModals(prevValues => ({ ...prevValues, expenses: false }))}>Retour</button>
       </div>
     </div>
   )
