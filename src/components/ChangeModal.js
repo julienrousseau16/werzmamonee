@@ -4,10 +4,10 @@ import axios from 'axios'
 
 import './ChangeModal.css'
 
-const ChangeModal = ({ setAdmin, setChangeModal, expSelected, updateId, setUpdateId }) => {
+const ChangeModal = ({ setAdmin, setChangeModal, expSelected, expenses, setExpenses, updateId, setUpdateId }) => {
 
   const [updateValue, setUpdateValue] = useState(0)
-  const [newValues, setNewValues] = useState({ name: expSelected.name, amount: expSelected.amount, paid: expSelected.paid })
+  const [newValues, setNewValues] = useState({ id: expSelected.id, name: expSelected.name, amount: expSelected.amount.toFixed(2), paid: expSelected.paid })
 
   const handlePosition = e => {
     const change = e.target.value
@@ -23,9 +23,16 @@ const ChangeModal = ({ setAdmin, setChangeModal, expSelected, updateId, setUpdat
     setNewValues(prevValues => ({ ...prevValues, [name]: value }))
   }
 
-  const submitExpense = e => {
+  const submitExpense = async e => {
     e.preventDefault()
-    console.log(newValues)
+    const formData = newValues
+    const id = formData.id
+    await axios.put(`http://localhost:4000/expenses/${id}`, formData)
+    const tmp = [...expenses]
+    const index = tmp.findIndex(expense => expense.id === id)
+    tmp[index] = newValues
+    setExpenses(tmp) 
+    setChangeModal(false)
   }
 
   const changePosition = async () => {

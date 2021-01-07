@@ -80,13 +80,8 @@ const Table = () => {
           {expenses.map(expense =>
             <tr key={expense.id}>
               <th>{expense.name}</th>
-              <th>{expense.amount.toFixed(2)}</th>
-              <th
-                id={expense.id}
-                className={expense.paid ? 'Paid' : 'Unpaid'}
-                onClick={paySwitch}>{
-                  expense.paid ? 'OK' : 'X'
-                }</th>
+              <th>{expense.amount}</th>
+              <th className={expense.paid ? 'Paid' : 'Unpaid'}>{expense.paid ? 'OK' : 'X'}</th>
               <th id={expense.id}
                 onClick={fetchExpense}
               >Modif</th>
@@ -99,6 +94,8 @@ const Table = () => {
       {changeModal && <ChangeModal
         admin={admin}
         expSelected={expSelected}
+        expenses={expenses}
+        setExpenses={setExpenses}
         setAdmin={setAdmin}
         setChangeModal={setChangeModal}
         updateId={updateId}
