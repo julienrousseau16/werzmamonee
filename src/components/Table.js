@@ -9,9 +9,10 @@ import './Table.css'
 const Table = () => {
 
   const [admin, setAdmin] = useState({ id: null, name: '', current_position: 0.00 })
-  const [modals, setModals] = useState({ position: false, expenses: false })
   const [expenses, setExpenses] = useState([])
   const [expSelected, setExpSelected] = useState()
+  const [modals, setModals] = useState({ position: false, expenses: false })
+  const [total, setTotal] = useState(0)
 
   const addNewExpense = async () => {
     const formData = { name: 'Nouvelle dépense', amount: 0.00, paid: 0 }
@@ -25,7 +26,7 @@ const Table = () => {
     const id = e.target.id
     const results = await axios.get(`http://localhost:4000/expenses?id=${id}`)
     setExpSelected(results.data[0])
-    setModals(prevValues => ({...prevValues, expenses: true}))
+    setModals(prevValues => ({ ...prevValues, expenses: true }))
   }
 
   const fetchExpenses = async () => {
@@ -39,13 +40,26 @@ const Table = () => {
   }
 
   useEffect(() => {
+    const tmp = [...expenses]
+    const array = tmp.filter(item => item.paid === 0).map(item => item.amount)
+    if (array.length === 0) { 
+      setTotal(0)
+    }
+    else {
+      const reducer = (accumulator, currentValue) => accumulator + currentValue
+      const unpaid = array.reduce(reducer)
+      setTotal(unpaid)
+    }
+  }, [expenses])
+
+  useEffect(() => {
     fetchExpenses()
     fetchAdmin()
   }, [])
 
   return (
     <div className='Table'>
-      <h2>Titre table</h2>
+      <h2>titre</h2>
       <div className='UserData'>
         <h3>Utilisateur : {admin.name}</h3>
         <p>Position actuelle du compte : {admin.current_position}</p>
@@ -75,6 +89,9 @@ const Table = () => {
         <button onClick={addNewExpense}>Nouvelle dépense</button>
       </div>
 
+      <div className='TotalSection'>
+        <p>total disponible : {admin.current_position - total}</p>
+      </div>
       {modals.position && <PositionModal
         setAdmin={setAdmin}
         setModals={setModals} />}

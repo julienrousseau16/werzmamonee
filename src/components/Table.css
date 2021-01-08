@@ -3,11 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: coral;
 }
 
 .Table .UserData {
   margin: 20px 0;
+  background-color: darkslateblue;
 }
 
 .Table table {
