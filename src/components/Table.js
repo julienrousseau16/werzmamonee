@@ -42,7 +42,7 @@ const Table = () => {
   useEffect(() => {
     const tmp = [...expenses]
     const array = tmp.filter(item => item.paid === 0).map(item => item.amount)
-    if (array.length === 0) { 
+    if (array.length === 0) {
       setTotal(0)
     }
     else {
@@ -59,12 +59,14 @@ const Table = () => {
 
   return (
     <div className='Table'>
-      <h2>titre</h2>
       <div className='UserData'>
-        <h3>Utilisateur : {admin.name}</h3>
-        <p>Position actuelle du compte : {admin.current_position}</p>
-        <button id='position' onClick={() => setModals(prevValues => ({ ...prevValues, position: true }))}>ACTUALISER</button>
+        <legend>Position actuelle du compte :</legend>
+        <div className='PositionAction'>
+          <p>{admin.current_position}</p>
+          <button id='position' onClick={() => setModals(prevValues => ({ ...prevValues, position: true }))}>ACTUALISER</button>
+        </div>
       </div>
+
       <table>
         <thead>
           <tr>

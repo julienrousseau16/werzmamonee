@@ -1,14 +1,49 @@
 .Table {
-  padding: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Table .UserData {
+.UserData {
+  width: 100%;
   margin: 20px 0;
-  background-color: darkslateblue;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(167, 164, 164);
+  border-radius: 5px;
 }
+.UserData legend {
+  color: rgb(71, 69, 69);
+  text-align: center;
+}
+.PositionAction {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.UserData p {
+  margin: 5px 0;
+  font-size: 1.75em;
+  color: rgb(51, 49, 49);
+}
+.UserData button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: rgb(6, 117, 180);
+  border-color: rgb(16, 113, 168);
+  border-radius: 10px;
+  font-size: 15px;
+  color: rgb(255, 255, 255);
+}
+.UserData button:hover {
+  background-color: rgb(90, 177, 228);
+  border-color: rgb(110, 192, 240);
+  color: rgb(15, 110, 199);
+}
+
+
 
 .Table table {
   width: 90%;

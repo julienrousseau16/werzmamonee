@@ -17,6 +17,7 @@
   display: flex;
   flex-direction: column;
   background-color: #fff;
+  border-radius: 5px;
 }
 
 .Modal form {
@@ -24,6 +25,38 @@
   flex-direction: column;
   align-items: center;
 }
+
+.PositionModal div{
+  margin-top: 20px;
+  display: flex;
+}
+.PositionModal input {
+  font-size: 1em;
+  height: 30px;
+}
+.PositionModal #position {
+  width: 100px;
+  padding-left: 5px;
+}
+.PositionModal #submit {
+  margin-left: 10px;
+  padding: 0px 10px;
+  background-color: rgb(4, 155, 4);
+  border-color: rgb(12, 218, 12);
+  border-radius: 10px;
+  color: #fff;
+}
+.BackSection button {
+  padding: 5px 10px;
+  background-color: crimson;
+  border-radius: 10px;
+  color: #fff;
+}
+.Back {
+  margin-right: 5px;
+  color: rgb(87, 6, 22);
+}
+
 
 .FormSection {
   display: flex;

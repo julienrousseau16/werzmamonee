@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons'
+
 import './Modal.css'
 
 const PositionModal = ({ setAdmin, setModals }) => {
@@ -12,7 +15,8 @@ const PositionModal = ({ setAdmin, setModals }) => {
     setUpdateValue(change)
   }
 
-  const changePosition = async () => {
+  const changePosition = async e => {
+    e.preventDefault()
     const data = { current_position: updateValue }
     await axios.put('http://localhost:4000/admin', data)
       .then(res => {
@@ -25,12 +29,18 @@ const PositionModal = ({ setAdmin, setModals }) => {
   return (
     <div className='Modal'>
       <div className='ModalContainer'>
-        <label htmlFor='position'>Montant du nouveau solde :</label>
-        <input id='position' value={updateValue} onChange={handlePosition} />
+        <form className='PositionModal'>
+          <label htmlFor='position'>Montant du nouveau solde :</label>
+          <div>
+            <input id='position' type='number' name='current_position' value={updateValue} onChange={handlePosition} />
+            <input id='submit' type='submit' onClick={changePosition} value='OK' />
+          </div>
+        </form>
       </div>
-      <div>
-        <button onClick={changePosition}>VALIDER</button>
-        <button onClick={() => setModals(prevValues => ({ ...prevValues, position: false }))}>ANNULER</button>
+      <div className='BackSection'>
+        <button onClick={() => setModals(prevValues => ({ ...prevValues, position: false }))}>
+          <FontAwesomeIcon icon={faChevronCircleLeft} className='Back'/>
+          Retour</button>
       </div>
     </div>
   )
