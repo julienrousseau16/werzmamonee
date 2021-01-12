@@ -48,12 +48,15 @@
 }
 .BackSection button {
   padding: 5px 10px;
+  display: flex;
+  align-items: flex-start;
   background-color: crimson;
   border-radius: 10px;
   color: #fff;
 }
 .Back {
   margin-right: 5px;
+  font-size: 20px;
   color: rgb(87, 6, 22);
 }
 
@@ -94,8 +97,6 @@
   display: none;
 }
 
-.Regular {}
-
 .PaidAction label {
   padding: 2px 4px;
   border-radius: 5px;
@@ -122,13 +123,13 @@
   font-weight: bold;
 }
 
-.CancelSection {
+.DeleteSection {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.CancelSection p {
+.DeleteSection p {
   padding: 0 10px;
   position: relative;
   top: 35px;
@@ -136,17 +137,28 @@
   color: grey;
 }
 
-.CancelSection hr {
+.DeleteSection hr {
   width: 100%;
   margin: 25px 0;
   color: grey;
 }
 
-.CancelSection button {
+.DeleteSection button {
   padding: 7px 15px;
   background-color: crimson;
   border-radius: 5px;
   border-color: rgb(177, 85, 104);
   color: #fff;
   font-weight: bold;
+}
+
+#Trash {
+  margin-right: 5px;
+}
+
+#Back {
+  background-color: grey;
+}
+#ExpBack {
+  color: rgb(65, 62, 62);
 }

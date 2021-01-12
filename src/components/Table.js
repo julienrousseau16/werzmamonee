@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle, faTimesCircle, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+
 import ExpensesModal from './ExpensesModal'
 import PositionModal from './PositionModal'
 
@@ -58,42 +61,47 @@ const Table = () => {
   }, [])
 
   return (
-    <div className='Table'>
+    <div className='TableContainer'>
       <div className='UserData'>
         <legend>Position actuelle du compte :</legend>
         <div className='PositionAction'>
           <p>{admin.current_position}</p>
-          <button id='position' onClick={() => setModals(prevValues => ({ ...prevValues, position: true }))}>ACTUALISER</button>
+          <button onClick={() => setModals(prevValues => ({ ...prevValues, position: true }))}>ACTUALISER</button>
         </div>
       </div>
 
-      <table>
+      <table className='Table'>
         <thead>
           <tr>
-            <th>Intitulé de la Dépense</th>
+            <th>Dépense</th>
             <th>Coût</th>
             <th>Payé</th>
           </tr>
         </thead>
         <tbody>
-          {expenses.map(expense =>
-            <tr key={expense.id}>
+          {expenses.map((expense, index) =>
+            <tr key={expense.id} className={index % 2 === 0 ? 'Even' : 'Odd'}>
               <th>{expense.name}</th>
               <th>{expense.amount}</th>
-              <th className={expense.paid ? 'Paid' : 'Unpaid'}>{expense.paid ? 'OK' : 'X'}</th>
-              <th id={expense.id}
-                onClick={fetchExpense}
-              >Modif</th>
+              <th className='Status'>{expense.paid ?
+                <FontAwesomeIcon icon={faCheckCircle} className='Yes' />
+                : <FontAwesomeIcon icon={faTimesCircle} className='No' />}</th>
+              <th className='ModifyCell'>
+                <button id={expense.id} onClick={fetchExpense}>&#9881;</button>
+                </th>
             </tr>)}
         </tbody>
       </table>
-      <div>
-        <button onClick={addNewExpense}>Nouvelle dépense</button>
+      <div className='NewExpense'>
+        <button onClick={addNewExpense}>
+          <FontAwesomeIcon icon={faPlusCircle} className='icon' />
+          Nouvelle dépense</button>
+      </div>
+      <div className='TotalSection'>
+        <legend>Fonds réellement disponibles :</legend>
+        <p>{admin.current_position - total}</p>
       </div>
 
-      <div className='TotalSection'>
-        <p>total disponible : {admin.current_position - total}</p>
-      </div>
       {modals.position && <PositionModal
         setAdmin={setAdmin}
         setModals={setModals} />}

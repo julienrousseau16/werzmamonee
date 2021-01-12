@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-
 import axios from 'axios'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons'
 
 import './Modal.css'
 
@@ -69,14 +71,18 @@ const ExpensesModal = ({ expenses, setExpenses, expSelected, setModals }) => {
           </div>
           <input id='Validate' type='submit' value='MODIFIER' />
         </form>
-        <div className='CancelSection'>
+        <div className='DeleteSection'>
           <p>OU</p>
           <hr />
-          <button onClick={deleteExpense}>Supprimer la dépense</button>
+          <button onClick={deleteExpense}>
+            <FontAwesomeIcon id='Trash' icon={faTrashAlt} />
+            Supprimer la dépense</button>
         </div>
       </div>
-      <div>
-        <button onClick={() => setModals(prevValues => ({ ...prevValues, expenses: false }))}>Retour</button>
+      <div className='BackSection'>
+        <button id='Back' onClick={() => setModals(prevValues => ({ ...prevValues, expenses: false }))}>
+          <FontAwesomeIcon icon={faChevronCircleLeft} className='Back' id='ExpBack'/>
+          Retour</button>
       </div>
     </div>
   )
