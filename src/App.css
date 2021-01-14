@@ -2,11 +2,11 @@
   padding: 7%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
   /* background-color: rgb(186, 224, 186); */
-  background-color: rgb(35, 145, 35);
+  background-color: rgb(93, 100, 167);
 }
 
 .App h1 {
