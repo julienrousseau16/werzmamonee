@@ -19,7 +19,7 @@ const Table = () => {
 
   const addNewExpense = async () => {
     const formData = { name: 'Nouvelle dépense', amount: 0.00, paid: 0 }
-    const results = await axios.post('http://localhost:4000/expenses', formData)
+    const results = await axios.post('/expenses', formData)
     const tmp = [...expenses]
     tmp.push(results.data[0])
     setExpenses(tmp)
@@ -27,18 +27,18 @@ const Table = () => {
 
   const fetchExpense = async e => {
     const id = e.target.id
-    const results = await axios.get(`http://localhost:4000/expenses?id=${id}`)
+    const results = await axios.get(`/expenses?id=${id}`)
     setExpSelected(results.data[0])
     setModals(prevValues => ({ ...prevValues, expenses: true }))
   }
 
   const fetchExpenses = async () => {
-    const results = await axios.get('http://localhost:4000/expenses')
+    const results = await axios.get('/expenses')
     setExpenses(results.data)
   }
 
   const fetchAdmin = async () => {
-    const results = await axios.get('http://localhost:4000/admin')
+    const results = await axios.get('/admin')
     setAdmin(results.data)
   }
 

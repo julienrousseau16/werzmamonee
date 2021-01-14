@@ -18,7 +18,7 @@ const PositionModal = ({ setAdmin, setModals }) => {
   const changePosition = async e => {
     e.preventDefault()
     const data = { current_position: updateValue }
-    await axios.put('http://localhost:4000/admin', data)
+    await axios.put('/admin', data)
       .then(res => {
         const newValue = res.data[0].current_position
         setAdmin(prevValues => ({ ...prevValues, current_position: newValue }))

@@ -23,7 +23,7 @@ const ExpensesModal = ({ expenses, setExpenses, expSelected, setModals }) => {
     e.preventDefault()
     const formData = newValues
     const id = formData.id
-    await axios.put(`http://localhost:4000/expenses/${id}`, formData)
+    await axios.put(`/expenses/${id}`, formData)
     const tmp = [...expenses]
     const index = tmp.findIndex(expense => expense.id === id)
     tmp[index] = newValues
@@ -33,7 +33,7 @@ const ExpensesModal = ({ expenses, setExpenses, expSelected, setModals }) => {
 
   const deleteExpense = async () => {
     const id = newValues.id
-    await axios.delete(`http://localhost:4000/expenses/${id}`)
+    await axios.delete(`/expenses/${id}`)
     const tmp = [...expenses]
     const index = tmp.findIndex(expense => expense.id === id)
     tmp.splice(index, 1)
