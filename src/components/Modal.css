@@ -1,7 +1,7 @@
 .Modal {
   height: 100%;
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   z-index: 10;
   display: flex;
@@ -9,6 +9,7 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.8);
+  overflow-y: scroll;
 }
 
 .ModalContainer {
