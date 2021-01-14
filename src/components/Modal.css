@@ -18,7 +18,6 @@
   flex-direction: column;
   background-color: #fff;
   border-radius: 5px;
-  /* position: relative; */
   overflow-y: scroll;
 }
 
